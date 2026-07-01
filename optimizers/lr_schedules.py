@@ -1,4 +1,5 @@
 import numpy as np
+
 class WarmupCosine: 
     def __init__(self, warmup_steps, total_steps, base_lr): 
         self.warmup_steps = warmup_steps
@@ -12,4 +13,4 @@ class WarmupCosine:
             return self.base_lr * (t / self.warmup_steps)
 
         progress = (t - self.warmup_steps) / (self.total_steps - self.warmup_steps)
-        return 0.5 * self.base_lr * (1 + 
+        return 0.5 * self.base_lr * (1 + np.cos(np.pi * progress))
