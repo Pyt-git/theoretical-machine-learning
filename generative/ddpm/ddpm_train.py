@@ -1,7 +1,10 @@
 import numpy as np
-from models.neural_network import generalized_forward, generalized_backward, generalized_param_gradients
+from models.neural_network import (generalized_forward, generalized_backward, generalized_param_gradients)
 from eps_model import eps_model
 from optimizers.pipeline import OptimizerPipeline
+
+optimizer = OptimizerPipeline()
+opt_state = optimizer.init_state(layers)
 
 def ddpm_training_step(batch_x0, layers, optimizer, opt_state):
     batch_size = batch_x0.shape[0]
