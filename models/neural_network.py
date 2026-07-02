@@ -12,11 +12,11 @@ def mse_loss(y, y_hat):
     return np.mean((y_hat - y) ** 2)
 
 def output_grad(y_hat, y): 
-    return 2 * (y_hat, y) / y.shape[0]
+    return 2 * (y_hat - y) / y.shape[0]
 
 def hidden_grad(dz2, W2, z1):
     da1 = dz2 @ W2.T
-    dz1 = da1 * da1 * relu_grad(z1)
+    dz1 = da1 * relu_grad(z1)
     return dz1
 
 def param_gradients(X, a1, dz1, dz2): 
@@ -123,6 +123,3 @@ def xavier_init(in_dim, out_dim):
 def he_init(in_dim, out_dim): 
     std = np.sqrt(2 / in_dim)
     return np.random.randn(in_dim, out_dim) * std
-           
-
-
