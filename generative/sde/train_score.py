@@ -49,3 +49,16 @@ def score_training_step(batch_x0, layers, optimizer, opt_state, schedule, time_d
         layer["W"], layer["b"] = W, b
 
     return loss, opt_state
+
+def train_score_sde(data_X, layers, optimizer, opt_state, epochs, steps_per_epoch, time_dim):
+    schedule = VPSchedule()
+
+    for epoch in range(epochs):
+        for _ in range(steps_per_epoch):
+            batch_x0 = data_X  # start with full batch; later you can batchify
+            loss, opt_state = score_training_step(
+                batch_x0, layers, optimizer, opt_state, schedule, time_dim
+            )
+        print(f"epoch {epoch}: loss = {loss:.6f}")
+
+    return layers, opt_state
